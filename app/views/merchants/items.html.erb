@@ -28,12 +28,14 @@
     <ul>
       <% @enabled_items.each do |item| %>
         <div id="enabled-item-<%= item.id %>"> 
+    <div class="enabled-item">
           <%= form_with url: "/items/#{item.id}", method: :patch, local: true do |f| %>
             <li><p><%= link_to item.name, "/merchants/#{@merchant.id}/items/#{item.id}" %></p></li>
             <p><%= f.button "Disable #{item.name}", type: "submit", name: "status", value: "disabled" %></p>
+      </div> 
           <% end %>
         </div>
-      <% end %> 
+      <% end %>
     </ul>
   </div>
 
