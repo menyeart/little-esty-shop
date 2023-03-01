@@ -5,7 +5,7 @@ describe 'Admin Invoices show page' do
     describe 'When I visit the admin invoice show page' do
       let!(:customer_2) {create(:customer) }
       let!(:merchant_2) {create(:merchant) }
-      let!(:invoice_2) {create(:invoice, customer_id: customer_2.id, status:'completed') }
+      let!(:invoice_2) {create(:invoice, customer_id: customer_2.id, status:'completed', created_at: Time.new(2002)) }
       let!(:item_2) {create(:item, merchant_id: merchant_2.id) }
       let!(:invoice_item_3) {create(:invoice_item, item_id: item_2.id, quantity: 10, unit_price: 9, invoice_id: invoice_2.id ) }
       let!(:invoice_item_4) {create(:invoice_item, item_id: item_2.id, quantity: 10, unit_price: 9, invoice_id: invoice_2.id ) }
@@ -16,7 +16,7 @@ describe 'Admin Invoices show page' do
   
         expect(page).to have_content("#{invoice_2.id}")
         expect(page).to have_content("#{invoice_2.status}")
-        expect(page).to have_content("#{invoice_2.created_at.strftime("%A, %B %e, %Y")}")
+        expect(page).to have_content("Tuesday, January 1, 2002")
         expect(page).to have_content("#{invoice_2.customer.first_name}")
         expect(page).to have_content("#{invoice_2.customer.last_name}")
       end
@@ -35,7 +35,7 @@ describe 'Admin Invoices show page' do
       it "I see the total revenue that will be generated from this invoice" do
         visit admin_invoice_path(invoice_2)
         
-        expect(page).to have_content("Total revenue to be generated: $1.80")
+        expect(page).to have_content("Total Revenue: $1.80")
       end
 
       it "I see the invoice status is a select field and I see that the invoice's current status is selected when I click this select field. Then I can select a new status for the Invoice, and next to the select field I see a button to 'Update Invoice Status'. When I click this button I am taken back to the admin invoice show page and I see that my Invoice's status has now been updated" do
