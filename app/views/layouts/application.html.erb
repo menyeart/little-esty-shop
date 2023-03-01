@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+  <% require "./app/poros/github_repo.rb" %>
+   <%x = GithubRepo.new(GitHubService.repo_page, GitHubService.contributor_page)%>
     <title>LittleEtsyShop</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -18,4 +20,10 @@
   <body>
     <%= yield %>
   </body>
+  <div id = 'api'>
+  <%= x.name %>
+   <% x.contributors.each do |cont|%>
+   <p> <%="Contributor: #{cont[0]} Commits: #{cont[1]}" %></p>
+   <%end%>
+   <div>
 </html>
