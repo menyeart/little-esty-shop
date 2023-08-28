@@ -10,7 +10,6 @@ class Invoice < ApplicationRecord
     joins(:invoice_items)
     .where("invoice_items.status != ?", 2)
     .order(:created_at)
-    # question mark is a placeholder for 2
   end
 
   def items_with_invoice_attributes
